@@ -53,19 +53,19 @@ startValue =
 
 {-| -}
 pause : Stopwatch -> Stopwatch
-pause timer =
-    case timer of
+pause stopwatch =
+    case stopwatch of
         Running ms ->
             Paused ms
 
         _ ->
-            timer
+            stopwatch
 
 
 {-| -}
 value : Stopwatch -> Time
-value timer =
-    case timer of
+value stopwatch =
+    case stopwatch of
         Stopped ->
             startValue
 
