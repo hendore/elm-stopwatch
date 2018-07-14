@@ -9,6 +9,7 @@ type Msg
     = Reset
     | Start
     | Pause
+    | StopwatchTick Stopwatch
 
 
 main : Program Never Stopwatch Msg
@@ -38,6 +39,9 @@ update msg stopwatch =
         Pause ->
             ( Stopwatch.pause stopwatch, Cmd.none )
 
+        StopwatchTick stopwatch ->
+            ( stopwatch, Cmd.none )
+
 
 view : Stopwatch -> Html Msg
 view stopwatch =
@@ -51,4 +55,4 @@ view stopwatch =
 
 subscriptions : Stopwatch -> Sub Msg
 subscriptions stopwatch =
-    Sub.none
+    Stopwatch.tick StopwatchTick stopwatch

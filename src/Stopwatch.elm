@@ -1,21 +1,16 @@
-module Stopwatch exposing (Stopwatch, reset, start, pause, value)
+module Stopwatch exposing (Stopwatch, tick, reset, start, pause, value)
 
 {-| A stopwatch.
 
 
-# Types
+# Stopwatch
 
-@docs Stopwatch
+@docs Stopwatch, tick, value
 
 
 # Controls
 
 @docs reset, start, pause
-
-
-# Misc
-
-@docs value
 
 -}
 
@@ -27,6 +22,31 @@ type Stopwatch
     = Stopped
     | Running Time
     | Paused Time
+
+
+{-| -}
+tick : (Stopwatch -> msg) -> Stopwatch -> Sub msg
+tick msg stopwatch =
+    case stopwatch of
+        Running ms ->
+            Time.every millisecond (always (Running (ms + 1) |> msg))
+
+        _ ->
+            Sub.none
+
+
+{-| -}
+value : Stopwatch -> Time
+value stopwatch =
+    case stopwatch of
+        Stopped ->
+            startValue
+
+        Running ms ->
+            ms
+
+        Paused ms ->
+            ms
 
 
 {-| -}
@@ -46,11 +66,6 @@ start stopwatch =
             Running startValue
 
 
-startValue : Time
-startValue =
-    0 * millisecond
-
-
 {-| -}
 pause : Stopwatch -> Stopwatch
 pause stopwatch =
@@ -62,15 +77,6 @@ pause stopwatch =
             stopwatch
 
 
-{-| -}
-value : Stopwatch -> Time
-value stopwatch =
-    case stopwatch of
-        Stopped ->
-            startValue
-
-        Running ms ->
-            ms
-
-        Paused ms ->
-            ms
+startValue : Time
+startValue =
+    0 * millisecond
