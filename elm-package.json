@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "summary": "A timer that simulates the features of a real world stopwatch.",
+    "repository": "https://github.com/hendore/elm-stopwatch.git",
+    "license": "MIT",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [
+        "Stopwatch"
+    ],
+    "dependencies": {
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "elm-lang/html": "2.0.0 <= v < 3.0.0"
+    },
+    "elm-version": "0.18.0 <= v < 0.19.0"
+}
